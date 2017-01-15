@@ -53,6 +53,7 @@ module.exports = {
   	new CopyWebpackPlugin(
   		[
   			{from: './src/*.html', flatten: true},
+        {from: './src/favicon.ico', flatten: true},
   			// {from: './src/*.css'},
   			// {from: './src/*.svg'}
   		],
