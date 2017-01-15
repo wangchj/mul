@@ -4,8 +4,43 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './layout.css';
 
 class FlashcardPage extends Component {
-  tableButtonClick() {
-    console.log('tableButtonClick()');
+
+  constructor() {
+    super();
+
+    let params = this.getQueryParams();
+    this.state = params;
+  }
+
+  getQueryParams() {
+    let param1 = this.getUrlParam('a');
+    let param2 = this.getUrlParam('b');
+    let a = parseInt(param1);
+    let b = parseInt(param2);
+
+    a = a ? a : 2;
+    b = b ? b : 2;
+
+    return {a:a, b:b};
+  }
+
+  /**
+   * Gets a query string parameter from the browser url.
+   *
+   * Source: http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+   * Note: this method is inefficient for getting a large number of parameters because this function
+   *       needs to be called once for each parameter.
+   */ 
+  getUrlParam(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
   render() {
@@ -13,9 +48,9 @@ class FlashcardPage extends Component {
       <div className="App" style={{height:'100%'}}>
         <div id="header" style={{position:'fixed', top:'0', left:'0', width:'100%', paddingTop:'10px', paddingBottom:'10px', textAlign:'right', border:'solid 0px gray'}}>
           <div style={{marginRight:'10px'}}>
-        	  <button type="button" className="btn btn-default" onClick={this.tableButtonClick}>
+        	  <a className="btn btn-default" href="table.html">
               <span className="glyphicon glyphicon-th"/>
-            </button>
+            </a>
           </div>
         </div>
         <div id="content" style={{
@@ -25,7 +60,7 @@ class FlashcardPage extends Component {
           flexDirection: 'column',
           justifyContent: 'center'}}
         >
-          <Mul a="2" b="2" />
+          <Mul a={this.state.a} b={this.state.b} />
         </div>
       </div>
     );

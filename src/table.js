@@ -147,7 +147,7 @@ class Cell extends Component {
     }
 
     return (
-      <td onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)} style={css}>
+      <td onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)} onClick={()=>{window.location.href="card.html?a="+colId+"&b="+rowId}} style={css}>
         {parseInt(rowId) * parseInt(colId)}
       </td>
     );
